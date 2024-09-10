@@ -6,8 +6,6 @@
 #include "BluePromise.h"
 #include "WaitForSecondsPromise.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FWaitForSecondsPromiseEvent);
-
 /**
  * A BluePromise that is equivalent to the Delay node.
  */
@@ -28,11 +26,16 @@ public:
 	
 	/** A delegate called when the promise completes. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitForSecondsPromiseEvent OnComplete;
+	FBluePromiseEvent OnComplete;
+
+	virtual FBluePromiseEvent& GetCompleteEvent() override
+	{
+		return OnComplete;
+	}
 
 	/** A delegate called when the promise is cancelled. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitForSecondsPromiseEvent OnCancel;
+	FBluePromiseEvent OnCancel;
 
 	// Start UCancellablePromise Functions
 	virtual void Activate() override;

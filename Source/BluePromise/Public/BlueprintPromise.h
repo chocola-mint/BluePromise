@@ -6,10 +6,10 @@
 #include "BluePromise.h"
 #include "BlueprintPromise.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FBlueprintPromiseEvent);
-
 /**
  * A special kind of BluePromise that can be implemented via Blueprints.
+ * Instead of inheriting from this class, you should make macros/nodes
+ * that use this class.
  */
 UCLASS()
 class UBlueprintPromise : public UBluePromise
@@ -27,11 +27,16 @@ public:
 	
 	/** A delegate called when the promise completes. */
 	UPROPERTY(BlueprintAssignable)
-	FBlueprintPromiseEvent OnComplete;
+	FBluePromiseEvent OnComplete;
+
+	virtual FBluePromiseEvent& GetCompleteEvent() override
+	{
+		return OnComplete;
+	}
 
 	/** A delegate called when the promise is cancelled. */
 	UPROPERTY(BlueprintAssignable)
-	FBlueprintPromiseEvent OnCancel;
+	FBluePromiseEvent OnCancel;
 
 	/** Complete the Blueprint Promise.*/
 	UFUNCTION(BlueprintCallable)

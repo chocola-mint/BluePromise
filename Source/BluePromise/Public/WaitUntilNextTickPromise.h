@@ -6,8 +6,6 @@
 #include "BluePromise.h"
 #include "WaitUntilNextTickPromise.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FWaitUntilNextTickPromiseEvent);
-
 /**
  * A BluePromise that is equivalent to the Delay Until Next Tick node.
  */
@@ -27,11 +25,16 @@ public:
 	
 	/** A delegate called when the promise completes. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitUntilNextTickPromiseEvent OnComplete;
+	FBluePromiseEvent OnComplete;
+
+	virtual FBluePromiseEvent& GetCompleteEvent() override
+	{
+		return OnComplete;
+	}
 
 	/** A delegate called when the promise is cancelled. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitUntilNextTickPromiseEvent OnCancel;
+	FBluePromiseEvent OnCancel;
 
 	// Start UCancellablePromise Functions
 	virtual void Activate() override;

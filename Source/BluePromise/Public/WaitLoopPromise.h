@@ -6,8 +6,6 @@
 #include "BluePromise.h"
 #include "WaitLoopPromise.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FWaitLoopPromiseEvent);
-
 /**
  * A BluePromise that runs an asynchronous loop that can be continued manually with different delays.
  */
@@ -27,15 +25,20 @@ public:
 	
 	/** A delegate called when the loop continues. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitLoopPromiseEvent OnContinue;
+	FBluePromiseEvent OnContinue;
 
 	/** A delegate called when the loop is cancelled. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitLoopPromiseEvent OnCancel;
+	FBluePromiseEvent OnCancel;
 
 	/** A delegate called when the loop breaks. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitLoopPromiseEvent OnBreak;
+	FBluePromiseEvent OnBreak;
+
+	virtual FBluePromiseEvent& GetCompleteEvent() override
+	{
+		return OnBreak;
+	}
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	int LoopCounter = 0;

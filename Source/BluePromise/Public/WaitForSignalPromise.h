@@ -6,8 +6,6 @@
 #include "BluePromise.h"
 #include "WaitForSignalPromise.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE(FWaitForSignalPromiseEvent);
-
 /**
  * A BluePromise that is able to listen to a SignalComponent and complete when it is emitted.
  */
@@ -28,11 +26,16 @@ public:
 	
 	/** A delegate called when the promise completes. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitForSignalPromiseEvent OnComplete;
+	FBluePromiseEvent OnComplete;
+
+	virtual FBluePromiseEvent& GetCompleteEvent() override
+	{
+		return OnComplete;
+	}
 
 	/** A delegate called when the promise is cancelled. */
 	UPROPERTY(BlueprintAssignable)
-	FWaitForSignalPromiseEvent OnCancel;
+	FBluePromiseEvent OnCancel;
 
 	// Start UCancellablePromise Functions
 	virtual void Activate() override;
