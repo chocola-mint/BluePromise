@@ -10,7 +10,7 @@ DECLARE_MULTICAST_DELEGATE(FOnSignalEmitSignature);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSignalEmitDynamicSignature);
 
 /**
- * 
+ * BlueSignals are events that can be listened to by WaitForSignalPromise nodes.
  */
 UCLASS(BlueprintType)
 class UBlueSignal : public UObject
@@ -18,6 +18,9 @@ class UBlueSignal : public UObject
 	GENERATED_BODY()
 	
 public:
+	/**
+	* Emit the signal, firing all registered delegates.
+	*/
 	UFUNCTION(BlueprintCallable)
 	void EmitSignal();
 

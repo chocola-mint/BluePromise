@@ -7,7 +7,7 @@
 #include "WaitForSignalPromise.generated.h"
 
 /**
- * A BluePromise that is able to listen to a SignalComponent and complete when it is emitted.
+ * A BluePromise that is able to listen to a BlueSignal and complete when it is emitted.
  */
 UCLASS()
 class UWaitForSignalPromise : public UBluePromise
