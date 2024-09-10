@@ -38,7 +38,7 @@ void UWaitUntilNextTickPromise::Activate()
 				{
 					// If everything went well, broadcast OnComplete (fire the On Complete pin), and wrap up.
 					WeakThis->OnComplete.Broadcast();
-					WeakThis->SetReadyToDestroy();
+					WeakThis->End();
 				}
 			});
 		return;

@@ -41,7 +41,7 @@ void UWaitForSecondsPromise::Activate()
 					{
 						// If everything went well, broadcast OnComplete (fire the On Complete pin), and wrap up.
 						WeakThis->OnComplete.Broadcast();
-						WeakThis->SetReadyToDestroy();
+						WeakThis->End();
 					}
 				}),
 				FMath::Max(DelayTime, 0.001f), false);
